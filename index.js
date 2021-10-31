@@ -23,7 +23,48 @@ async function run() {
 
         const database = client.db('travelMate');
         const toursCollection = database.collection('tours');
-        const ordersCollection = database.collection('orders');
+        const asiaToursCollection = database.collection('asiaTours');
+        const blogsCollection = database.collection('blogs');
+        const ourTeamCollection = database.collection('ourTeam');
+        const testimonialsCollection = database.collection('testimonials');
+
+        // GET API FOR ASIA TOURS
+        app.get('/asiatours', async (req, res) => {
+            const cursor = asiaToursCollection.find({});
+            const tours = await cursor.toArray();
+            res.json(tours);
+        });
+
+
+
+        // GET API FOR SINGLE Asia Tour
+
+        app.get('/asiatours/:id', async (req, res) => {
+            const id = req.params.id;
+            // console.log('getting specific tour', id);
+            const query = { _id: ObjectId(id) };
+            const tour = await asiaToursCollection.findOne(query);
+            res.json(tour);
+        });
+
+        // GET API FOR blogs
+        app.get('/blogs', async (req, res) => {
+            const cursor = blogsCollection.find({});
+            const blogs = await cursor.toArray();
+            res.json(blogs);
+        });
+        // GET API FOR Testimonials
+        app.get('/testimonials', async (req, res) => {
+            const cursor = testimonialsCollection.find({});
+            const testimonials = await cursor.toArray();
+            res.json(testimonials);
+        });
+        // GET API FOR our team
+        app.get('/ourteam', async (req, res) => {
+            const cursor = ourTeamCollection.find({});
+            const ourteam = await cursor.toArray();
+            res.json(ourteam);
+        });
 
 
         // GET API FOR TOURS
@@ -32,9 +73,6 @@ async function run() {
             const tours = await cursor.toArray();
             res.json(tours);
         });
-
-
-
         // GET API FOR SINGLE Tour
 
         app.get('/tours/:id', async (req, res) => {
@@ -44,6 +82,8 @@ async function run() {
             const tour = await toursCollection.findOne(query);
             res.json(tour);
         });
+
+
 
         // POST API FOR TOUR
         app.post('/tours', async (req, res) => {

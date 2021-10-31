@@ -27,6 +27,7 @@ async function run() {
         const blogsCollection = database.collection('blogs');
         const ourTeamCollection = database.collection('ourTeam');
         const testimonialsCollection = database.collection('testimonials');
+        const ordersCollection = database.collection('orders');
 
         // GET API FOR ASIA TOURS
         app.get('/asiatours', async (req, res) => {
